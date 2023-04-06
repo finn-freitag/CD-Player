@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 namespace EasyCodeClass.Multimedia.Audio.Windows.CDRom
 {
     public delegate void TrackReaded(TrackReadEventArgs e);
+    public delegate void TrackBytesReaded(TrackBytesReadEventArgs e);
 
     public class CompactDisc : ICloneable
     {
@@ -111,6 +112,100 @@ namespace EasyCodeClass.Multimedia.Audio.Windows.CDRom
                 }
                 catch { }
                 return TrackCount;
+            }
+        }
+
+        public void GetData(TrackBytesReaded trackReaded)
+        {
+            // Contains code from https://www.c-sharpcorner.com/UploadFile/moosestafa/converting-cda-to-wav/
+
+            if (ExternalFunctions.GetDriveType(DriveLetter + ":\\") == DriveTypes.DRIVE_CDROM)
+            {
+                uint dummy = 0;
+                IntPtr cdHandle = ExternalFunctions.CreateFile("\\\\.\\" + DriveLetter + ':', Constances.GENERIC_READ, Constances.FILE_SHARE_READ, IntPtr.Zero, Constances.OPEN_EXISTING, 0, IntPtr.Zero);
+                bool isReady = ExternalFunctions.DeviceIoControl(cdHandle, Constances.IOCTL_STORAGE_CHECK_VERIFY, IntPtr.Zero, 0, IntPtr.Zero, 0, ref dummy, IntPtr.Zero) == 1;
+                if (isReady)
+                {
+                    try
+                    {
+                        CDROM_TOC TOC = new CDROM_TOC();
+                        IntPtr pointer = Marshal.AllocHGlobal((IntPtr)(Marshal.SizeOf(TOC)));
+                        Marshal.StructureToPtr(TOC, pointer, false);
+                        uint BytesRead = 0;
+                        bool tocValid = ExternalFunctions.DeviceIoControl(cdHandle, Constances.IOCTL_CDROM_READ_TOC, IntPtr.Zero, 0, pointer, (uint)Marshal.SizeOf(TOC), ref BytesRead, IntPtr.Zero) != 0;
+                        Marshal.PtrToStructure(pointer, TOC);
+                        if (tocValid)
+                        {
+                            uint TrackCount = TOC.LastTrack;
+                            byte[][] TrackData = new byte[TrackCount][];
+                            int errors = 0;
+                            for (int track = 0; track < TrackCount; track++)
+                            {
+                                long offset = 0;
+                                TRACK_DATA td = TOC.TrackData[track];
+                                int StartSector = (td.Address_1 * 60 * 75 + td.Address_2 * 75 + td.Address_3) - 150;
+                                td = TOC.TrackData[track + 1];
+                                int EndSector = (td.Address_1 * 60 * 75 + td.Address_2 * 75 + td.Address_3) - 151;
+                                uint TrackSize = (uint)(EndSector - StartSector) * Constances.CB_AUDIO;
+                                TrackData[track] = new byte[TrackSize];
+                                byte[] SectorData = new byte[Constances.CB_AUDIO * Constances.NSECTORS];
+                                for (int sector = StartSector; sector < EndSector; sector += Constances.NSECTORS)
+                                {
+                                    RAW_READ_INFO rri = new RAW_READ_INFO();
+                                    rri.TrackMode = TRACK_MODE_TYPE.CDDA;
+                                    rri.SectorCount = (uint)1;
+                                    rri.DiskOffset = sector * Constances.CB_CDROMSECTOR;
+                                    Marshal.StructureToPtr(rri, pointer, false);
+                                    int size = Marshal.SizeOf(SectorData[0]) * SectorData.Length;
+                                    IntPtr pointer2 = Marshal.AllocHGlobal(size);
+                                    SectorData.Initialize();
+                                    int i = ExternalFunctions.DeviceIoControl(cdHandle, Constances.IOCTL_CDROM_RAW_READ, pointer, (uint)Marshal.SizeOf(rri), pointer2, (uint)Constances.NSECTORS * Constances.CB_AUDIO, ref BytesRead, IntPtr.Zero);
+                                    if (i == 0)
+                                    {
+                                        errors++;
+                                        break;
+                                    }
+                                    Marshal.PtrToStructure(pointer, rri);
+                                    Marshal.Copy(pointer2, SectorData, 0, SectorData.Length);
+                                    Marshal.FreeHGlobal(pointer2);
+                                    Array.Copy(SectorData, 0, TrackData[track], offset, BytesRead);
+                                    offset += BytesRead;
+                                }
+
+                                trackReaded(new TrackBytesReadEventArgs(TrackData[track], track, !(track == TrackCount - 1)));
+                                TrackData[track] = new byte[0];
+                            }
+                            PREVENT_MEDIA_REMOVAL pmr = new PREVENT_MEDIA_REMOVAL();
+                            pmr.PreventMediaRemoval = 0;
+                            pointer = Marshal.AllocHGlobal((IntPtr)(Marshal.SizeOf(pmr)));
+                            Marshal.StructureToPtr(pmr, pointer, false);
+                            ExternalFunctions.DeviceIoControl(cdHandle, Constances.IOCTL_STORAGE_MEDIA_REMOVAL, pointer, (uint)Marshal.SizeOf(pmr), IntPtr.Zero, 0, ref dummy, IntPtr.Zero);
+                            Marshal.PtrToStructure(pointer, pmr);
+                            Marshal.FreeHGlobal(pointer);
+
+                            ExternalFunctions.CloseHandle(cdHandle);
+                        }
+                        else
+                        {
+                            ExternalFunctions.CloseHandle(cdHandle);
+                            throw new InvalidDataException();
+                        }
+                    }
+                    catch
+                    {
+                        ExternalFunctions.CloseHandle(cdHandle);
+                        throw new Exception();
+                    }
+                }
+                else
+                {
+                    ExternalFunctions.CloseHandle(cdHandle);
+                    throw new DriveNotFoundException();
+                }
+            }
+            else
+            {
+                throw new DriveNotFoundException();
             }
         }
 
@@ -225,7 +320,7 @@ namespace EasyCodeClass.Multimedia.Audio.Windows.CDRom
 
                                 wd.data = dat;
 
-                                trackReaded(new TrackReadEventArgs(wd, track));
+                                trackReaded(new TrackReadEventArgs(wd, track, !(track == TrackCount - 1)));
                             }
                             PREVENT_MEDIA_REMOVAL pmr = new PREVENT_MEDIA_REMOVAL();
                             pmr.PreventMediaRemoval = 0;
@@ -343,11 +438,27 @@ namespace EasyCodeClass.Multimedia.Audio.Windows.CDRom
     {
         public WaveData track;
         public int trackNumber;
+        public bool hasMoreTracks;
 
-        public TrackReadEventArgs(WaveData Track, int TrackNumber)
+        public TrackReadEventArgs(WaveData Track, int TrackNumber, bool hasMoreTracks)
         {
             this.track = Track;
             this.trackNumber = TrackNumber;
+            this.hasMoreTracks = hasMoreTracks;
+        }
+    }
+
+    public class TrackBytesReadEventArgs
+    {
+        public byte[] track;
+        public int trackNumber;
+        public bool hasMoreTracks;
+
+        public TrackBytesReadEventArgs(byte[] Track, int TrackNumber, bool hasMoreTracks)
+        {
+            this.track = Track;
+            this.trackNumber = TrackNumber;
+            this.hasMoreTracks = hasMoreTracks;
         }
     }
 }

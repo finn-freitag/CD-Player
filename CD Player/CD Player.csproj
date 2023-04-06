@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyImageCredits.cs" />
     <Compile Include="AssemblyURL.cs" />
     <Compile Include="CompactDisc.cs" />
     <Compile Include="Form1.cs">
@@ -172,6 +173,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Images\last.png" />
+    <None Include="Images\next.png" />
+    <None Include="Images\Pause.png" />
+    <None Include="Images\Play.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
