@@ -103,6 +103,26 @@ namespace CD_Player.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Info_dark_mode {
+            get {
+                object obj = ResourceManager.GetObject("Info_dark_mode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Info_light_mode {
+            get {
+                object obj = ResourceManager.GetObject("Info_light_mode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Lightbulb_dark_mode {
             get {
                 object obj = ResourceManager.GetObject("Lightbulb_dark_mode", resourceCulture);

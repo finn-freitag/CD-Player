@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.discToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,19 +46,32 @@
             this.switchDarklightModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Track = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Genre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Album = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Keywords = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.equaliseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.artistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.genreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.albumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.keywordsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.commentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
-            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Track = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Trackname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -74,10 +88,11 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.discToolStripMenuItem,
             this.selectionToolStripMenuItem,
+            this.equaliseToolStripMenuItem,
             this.settingsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1472, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -159,17 +174,17 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.dataGridView1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(800, 392);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1472, 357);
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 31);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(800, 419);
+            this.toolStripContainer1.Size = new System.Drawing.Size(1472, 384);
             this.toolStripContainer1.TabIndex = 1;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
             // toolStripContainer1.TopToolStripPanel
             // 
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip3);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip3);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip2);
             // 
             // toolStrip1
@@ -191,7 +206,8 @@
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.switchDarklightModeToolStripMenuItem});
+            this.switchDarklightModeToolStripMenuItem,
+            this.infoToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(76, 26);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -207,16 +223,175 @@
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton5});
-            this.toolStrip2.Location = new System.Drawing.Point(714, 0);
+            this.toolStripButton5,
+            this.toolStripButton8});
+            this.toolStrip2.Location = new System.Drawing.Point(244, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(42, 27);
+            this.toolStrip2.Size = new System.Drawing.Size(71, 27);
             this.toolStrip2.TabIndex = 1;
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStrip3
+            // 
+            this.toolStrip3.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip3.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton6,
+            this.toolStripButton7});
+            this.toolStrip3.Location = new System.Drawing.Point(173, 0);
+            this.toolStrip3.Name = "toolStrip3";
+            this.toolStrip3.Size = new System.Drawing.Size(71, 27);
+            this.toolStrip3.TabIndex = 0;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Selected,
+            this.Track,
+            this.Artist,
+            this.Genre,
+            this.Album,
+            this.Title,
+            this.Keywords,
+            this.Comment});
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(1472, 357);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // Selected
+            // 
+            this.Selected.HeaderText = "Selected";
+            this.Selected.MinimumWidth = 6;
+            this.Selected.Name = "Selected";
+            this.Selected.Width = 75;
+            // 
+            // Track
+            // 
+            this.Track.HeaderText = "Track";
+            this.Track.MinimumWidth = 6;
+            this.Track.Name = "Track";
+            this.Track.ReadOnly = true;
+            this.Track.ToolTipText = "Number of Track";
+            this.Track.Width = 75;
+            // 
+            // Artist
+            // 
+            this.Artist.HeaderText = "Artist";
+            this.Artist.MinimumWidth = 6;
+            this.Artist.Name = "Artist";
+            this.Artist.Width = 125;
+            // 
+            // Genre
+            // 
+            this.Genre.HeaderText = "Genre";
+            this.Genre.MinimumWidth = 6;
+            this.Genre.Name = "Genre";
+            this.Genre.Width = 75;
+            // 
+            // Album
+            // 
+            this.Album.HeaderText = "Album";
+            this.Album.MinimumWidth = 6;
+            this.Album.Name = "Album";
+            this.Album.Width = 125;
+            // 
+            // Title
+            // 
+            this.Title.HeaderText = "Title";
+            this.Title.MinimumWidth = 6;
+            this.Title.Name = "Title";
+            this.Title.Width = 200;
+            // 
+            // Keywords
+            // 
+            this.Keywords.HeaderText = "Keywords (,,)";
+            this.Keywords.MinimumWidth = 6;
+            this.Keywords.Name = "Keywords";
+            this.Keywords.Width = 125;
+            // 
+            // Comment
+            // 
+            this.Comment.HeaderText = "Comment";
+            this.Comment.MinimumWidth = 6;
+            this.Comment.Name = "Comment";
+            this.Comment.Width = 250;
+            // 
+            // equaliseToolStripMenuItem
+            // 
+            this.equaliseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.artistToolStripMenuItem,
+            this.genreToolStripMenuItem,
+            this.albumToolStripMenuItem,
+            this.keywordsToolStripMenuItem,
+            this.commentToolStripMenuItem});
+            this.equaliseToolStripMenuItem.Name = "equaliseToolStripMenuItem";
+            this.equaliseToolStripMenuItem.Size = new System.Drawing.Size(79, 26);
+            this.equaliseToolStripMenuItem.Text = "Equalize";
+            // 
+            // artistToolStripMenuItem
+            // 
+            this.artistToolStripMenuItem.Name = "artistToolStripMenuItem";
+            this.artistToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.artistToolStripMenuItem.Text = "Artist";
+            // 
+            // genreToolStripMenuItem
+            // 
+            this.genreToolStripMenuItem.Name = "genreToolStripMenuItem";
+            this.genreToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.genreToolStripMenuItem.Text = "Genre";
+            // 
+            // albumToolStripMenuItem
+            // 
+            this.albumToolStripMenuItem.Name = "albumToolStripMenuItem";
+            this.albumToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.albumToolStripMenuItem.Text = "Album";
+            // 
+            // keywordsToolStripMenuItem
+            // 
+            this.keywordsToolStripMenuItem.Name = "keywordsToolStripMenuItem";
+            this.keywordsToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.keywordsToolStripMenuItem.Text = "Keywords";
+            // 
+            // commentToolStripMenuItem
+            // 
+            this.commentToolStripMenuItem.Name = "commentToolStripMenuItem";
+            this.commentToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.commentToolStripMenuItem.Text = "Comment";
+            // 
+            // infoToolStripMenuItem
+            // 
+            this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
+            this.infoToolStripMenuItem.Text = "Info";
+            // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton6.Image = global::CD_Player.Properties.Resources.PlayTrack_light_mode;
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton6.Text = "Play selected track";
+            // 
+            // toolStripButton7
+            // 
+            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton7.Image = global::CD_Player.Properties.Resources.SaveTrack_light_mode;
+            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton7.Name = "toolStripButton7";
+            this.toolStripButton7.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton7.Text = "Save selected track";
             // 
             // toolStripDropDownButton1
             // 
@@ -272,83 +447,23 @@
             this.toolStripButton5.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton5.Text = "Switch dark/light mode";
             // 
-            // toolStrip3
+            // toolStripButton8
             // 
-            this.toolStrip3.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip3.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton6,
-            this.toolStripButton7});
-            this.toolStrip3.Location = new System.Drawing.Point(173, 0);
-            this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(71, 27);
-            this.toolStrip3.TabIndex = 0;
-            // 
-            // toolStripButton6
-            // 
-            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton6.Image = global::CD_Player.Properties.Resources.PlayTrack_light_mode;
-            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(38, 24);
-            this.toolStripButton6.Text = "Play selected track";
-            // 
-            // toolStripButton7
-            // 
-            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton7.Image = global::CD_Player.Properties.Resources.SaveTrack_light_mode;
-            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(38, 24);
-            this.toolStripButton7.Text = "Save selected track";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Selected,
-            this.Track,
-            this.Trackname});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(800, 392);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // Selected
-            // 
-            this.Selected.HeaderText = "Selected";
-            this.Selected.MinimumWidth = 6;
-            this.Selected.Name = "Selected";
-            this.Selected.Width = 75;
-            // 
-            // Track
-            // 
-            this.Track.HeaderText = "Track";
-            this.Track.MinimumWidth = 6;
-            this.Track.Name = "Track";
-            this.Track.ReadOnly = true;
-            this.Track.ToolTipText = "Number of Track";
-            this.Track.Width = 75;
-            // 
-            // Trackname
-            // 
-            this.Trackname.HeaderText = "Track name";
-            this.Trackname.MinimumWidth = 6;
-            this.Trackname.Name = "Trackname";
-            this.Trackname.Width = 500;
+            this.toolStripButton8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton8.Image = global::CD_Player.Properties.Resources.Info_light_mode;
+            this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton8.Name = "toolStripButton8";
+            this.toolStripButton8.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton8.Text = "Info";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1472, 415);
             this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "CD Player";
@@ -400,9 +515,22 @@
         private System.Windows.Forms.ToolStripButton toolStripButton6;
         private System.Windows.Forms.ToolStripButton toolStripButton7;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ToolStripMenuItem equaliseToolStripMenuItem;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Selected;
         private System.Windows.Forms.DataGridViewTextBoxColumn Track;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Trackname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Artist;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Genre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Album;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Title;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Keywords;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Comment;
+        private System.Windows.Forms.ToolStripMenuItem artistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem genreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem albumToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem keywordsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem commentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton8;
     }
 }
 
