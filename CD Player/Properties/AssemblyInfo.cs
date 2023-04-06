@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using CD_Player;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -6,11 +7,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CD Player")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Plays and saves audio from compact disks!")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Finn Freitag")]
 [assembly: AssemblyProduct("CD Player")]
-[assembly: AssemblyCopyright("Copyright ©  2023")]
+[assembly: AssemblyCopyright("Copyright © 2023")]
+[assembly: AssemblyURL("https://github.com/finn-freitag")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
