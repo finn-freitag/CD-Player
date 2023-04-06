@@ -74,6 +74,46 @@ namespace EasyCodeClass.Multimedia.Audio.Windows.CDRom
             catch { }
         }
 
+        public int TrackCount
+        {
+            get
+            {
+                int TrackCount = -1;
+                try
+                {
+                    if (ExternalFunctions.GetDriveType(DriveLetter + ":\\") == DriveTypes.DRIVE_CDROM)
+                    {
+                        uint dummy = 0;
+                        IntPtr cdHandle = ExternalFunctions.CreateFile("\\\\.\\" + DriveLetter + ':', Constances.GENERIC_READ, Constances.FILE_SHARE_READ, IntPtr.Zero, Constances.OPEN_EXISTING, 0, IntPtr.Zero);
+                        bool isReady = ExternalFunctions.DeviceIoControl(cdHandle, Constances.IOCTL_STORAGE_CHECK_VERIFY, IntPtr.Zero, 0, IntPtr.Zero, 0, ref dummy, IntPtr.Zero) == 1;
+                        if (isReady)
+                        {
+                            CDROM_TOC TOC = new CDROM_TOC();
+                            IntPtr pointer = Marshal.AllocHGlobal((IntPtr)(Marshal.SizeOf(TOC)));
+                            Marshal.StructureToPtr(TOC, pointer, false);
+                            uint BytesRead = 0;
+                            bool tocValid = ExternalFunctions.DeviceIoControl(cdHandle, Constances.IOCTL_CDROM_READ_TOC, IntPtr.Zero, 0, pointer, (uint)Marshal.SizeOf(TOC), ref BytesRead, IntPtr.Zero) != 0;
+                            Marshal.PtrToStructure(pointer, TOC);
+                            if (tocValid)
+                            {
+                                TrackCount = TOC.LastTrack;
+                            }
+                            PREVENT_MEDIA_REMOVAL pmr = new PREVENT_MEDIA_REMOVAL();
+                            pmr.PreventMediaRemoval = 0;
+                            pointer = Marshal.AllocHGlobal((IntPtr)(Marshal.SizeOf(pmr)));
+                            Marshal.StructureToPtr(pmr, pointer, false);
+                            ExternalFunctions.DeviceIoControl(cdHandle, Constances.IOCTL_STORAGE_MEDIA_REMOVAL, pointer, (uint)Marshal.SizeOf(pmr), IntPtr.Zero, 0, ref dummy, IntPtr.Zero);
+                            Marshal.PtrToStructure(pointer, pmr);
+                            Marshal.FreeHGlobal(pointer);
+                        }
+                        ExternalFunctions.CloseHandle(cdHandle);
+                    }
+                }
+                catch { }
+                return TrackCount;
+            }
+        }
+
         public void GetData(TrackReaded trackReaded/*, out int InvaildDataErrors*/)
         {
             WaveFormat format = new WaveFormat();
