@@ -1,0 +1,7 @@
+.vs/
+.vs/*/
+*.suo
+CD Player/bin/
+CD Player/bin/*/
+CD Player/obj/
+CD Player/obj/*/
