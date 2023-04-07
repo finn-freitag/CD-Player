@@ -1,4 +1,6 @@
-﻿using EasyCodeClass.Multimedia.Audio.Windows.CDRom;
+﻿using EasyCodeClass.Multimedia.Audio.Wave;
+using EasyCodeClass.Multimedia.Audio.Wave.LIST_Tags;
+using EasyCodeClass.Multimedia.Audio.Windows.CDRom;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -103,11 +105,15 @@ namespace CD_Player
             }
         }
 
-        private void TrackReaded(TrackBytesReadEventArgs e)
+        private void TrackReaded(TrackReadEventArgs e)
         {
             e.trackNumber++;
-            File.WriteAllBytes(wavePath + e.trackNumber + ".wav", e.track);
-            e.track = null;
+            MemoryStream ms = new MemoryStream();
+            e.track.Save(ms);
+            e.track.Dispose();
+            File.WriteAllBytes(wavePath + e.trackNumber + ".wav", ms.ToArray());
+            ms.Close();
+            ms.Dispose();
 
             dataGridView1.Invoke(new Action(() => {
                 DataGridViewRow row = new DataGridViewRow();
@@ -138,7 +144,34 @@ namespace CD_Player
 
         private void SaveTrackAs(int trackNum, string path)
         {
-            
+            int rowindex = GetRowIndex(trackNum);
+            LIST_Tag tag = new LIST_Tag();
+            tag.Tags.Add(new ILIST_Tag_TrackNumber(trackNum));
+            string artist = (string)dataGridView1.Rows[rowindex].Cells[dataGridView1.Columns["Artist"].Index].Value;
+            if (artist != "") tag.Tags.Add(new ILIST_Tag_Artist(artist));
+            string genre = (string)dataGridView1.Rows[rowindex].Cells[dataGridView1.Columns["Genre"].Index].Value;
+            if (genre != "") tag.Tags.Add(new ILIST_Tag_Genre(genre));
+            string album = (string)dataGridView1.Rows[rowindex].Cells[dataGridView1.Columns["Album"].Index].Value;
+            if (album != "") tag.Tags.Add(new ILIST_Tag_Album(album));
+            string title = (string)dataGridView1.Rows[rowindex].Cells[dataGridView1.Columns["Title"].Index].Value;
+            if (title != "") tag.Tags.Add(new ILIST_Tag_Title(title));
+            string comment = (string)dataGridView1.Rows[rowindex].Cells[dataGridView1.Columns["Comment"].Index].Value;
+            if (comment != "") tag.Tags.Add(new ILIST_Tag_Comment(comment));
+            string keywords = (string)dataGridView1.Rows[rowindex].Cells[dataGridView1.Columns["Keywords"].Index].Value;
+            if (keywords != "") tag.Tags.Add(new ILIST_Tag_Keywords(keywords.Split(',').ToList()));
+
+            tag.Tags.Add(new ILIST_Tag_EncodedBy(AssemblyInfoHelper.GetCompany() + " " + AssemblyInfoHelper.GetCopyright()));
+
+            File.Copy(wavePath + Convert.ToString(trackNum) + ".wav", path);
+            BinaryWriter bw = new BinaryWriter(new MemoryStream());
+            bw.BaseStream.Position = bw.BaseStream.Length;
+            tag.Write(bw);
+            List<byte> bytes = new List<byte>();
+            bytes.AddRange(File.ReadAllBytes(path));
+            bytes.AddRange(((MemoryStream)bw.BaseStream).ToArray());
+            File.WriteAllBytes(path, bytes.ToArray());
+            bw.Close();
+            bw.Dispose();
         }
 
         private string GeneratePath(int trackNum)
@@ -173,7 +206,11 @@ namespace CD_Player
             string first = "";
             foreach(DataGridViewRow row in dataGridView1.Rows)
             {
-                if ((string)row.Cells[column].Value != "") first = (string)row.Cells[column].Value;
+                if ((string)row.Cells[column].Value != "")
+                {
+                    first = (string)row.Cells[column].Value;
+                    break;
+                }
             }
             foreach(DataGridViewRow row in dataGridView1.Rows)
             {

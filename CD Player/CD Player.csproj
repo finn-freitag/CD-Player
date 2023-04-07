@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyImageCredits.cs" />
+    <Compile Include="AssemblyInfoHelper.cs" />
     <Compile Include="AssemblyURL.cs" />
     <Compile Include="CompactDisc.cs" />
     <Compile Include="Form1.cs">
