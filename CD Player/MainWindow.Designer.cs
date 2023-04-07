@@ -1,6 +1,6 @@
 ﻿namespace CD_Player
 {
-    partial class Form1
+    partial class MainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.discToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,9 +48,18 @@
             this.commentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.switchDarklightModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Track = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Genre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Album = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Keywords = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -67,22 +76,13 @@
             this.toolStrip4 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip5 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip6 = new System.Windows.Forms.ToolStrip();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
-            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Track = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Artist = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Genre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Album = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Keywords = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clearCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -126,38 +126,38 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(192, 26);
             this.openToolStripMenuItem.Text = "&Open...";
             // 
             // saveAudioAsToolStripMenuItem
             // 
             this.saveAudioAsToolStripMenuItem.Name = "saveAudioAsToolStripMenuItem";
-            this.saveAudioAsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveAudioAsToolStripMenuItem.Size = new System.Drawing.Size(192, 26);
             this.saveAudioAsToolStripMenuItem.Text = "&Save audio as...";
             this.saveAudioAsToolStripMenuItem.Click += new System.EventHandler(this.saveAudioAsToolStripMenuItem_Click);
             // 
             // playAllToolStripMenuItem
             // 
             this.playAllToolStripMenuItem.Name = "playAllToolStripMenuItem";
-            this.playAllToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.playAllToolStripMenuItem.Size = new System.Drawing.Size(192, 26);
             this.playAllToolStripMenuItem.Text = "&Play all";
             // 
             // ejectToolStripMenuItem
             // 
             this.ejectToolStripMenuItem.Name = "ejectToolStripMenuItem";
-            this.ejectToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.ejectToolStripMenuItem.Size = new System.Drawing.Size(192, 26);
             this.ejectToolStripMenuItem.Text = "&Eject";
             this.ejectToolStripMenuItem.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(189, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(192, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
@@ -173,13 +173,13 @@
             // saveTrackToolStripMenuItem
             // 
             this.saveTrackToolStripMenuItem.Name = "saveTrackToolStripMenuItem";
-            this.saveTrackToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveTrackToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
             this.saveTrackToolStripMenuItem.Text = "Save track";
             // 
             // playTrackToolStripMenuItem
             // 
             this.playTrackToolStripMenuItem.Name = "playTrackToolStripMenuItem";
-            this.playTrackToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.playTrackToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
             this.playTrackToolStripMenuItem.Text = "Play track";
             // 
             // equaliseToolStripMenuItem
@@ -197,35 +197,35 @@
             // artistToolStripMenuItem
             // 
             this.artistToolStripMenuItem.Name = "artistToolStripMenuItem";
-            this.artistToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.artistToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.artistToolStripMenuItem.Text = "Artist";
             this.artistToolStripMenuItem.Click += new System.EventHandler(this.artistToolStripMenuItem_Click);
             // 
             // genreToolStripMenuItem
             // 
             this.genreToolStripMenuItem.Name = "genreToolStripMenuItem";
-            this.genreToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.genreToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.genreToolStripMenuItem.Text = "Genre";
             this.genreToolStripMenuItem.Click += new System.EventHandler(this.genreToolStripMenuItem_Click);
             // 
             // albumToolStripMenuItem
             // 
             this.albumToolStripMenuItem.Name = "albumToolStripMenuItem";
-            this.albumToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.albumToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.albumToolStripMenuItem.Text = "Album";
             this.albumToolStripMenuItem.Click += new System.EventHandler(this.albumToolStripMenuItem_Click);
             // 
             // keywordsToolStripMenuItem
             // 
             this.keywordsToolStripMenuItem.Name = "keywordsToolStripMenuItem";
-            this.keywordsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.keywordsToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.keywordsToolStripMenuItem.Text = "Keywords";
             this.keywordsToolStripMenuItem.Click += new System.EventHandler(this.keywordsToolStripMenuItem_Click);
             // 
             // commentToolStripMenuItem
             // 
             this.commentToolStripMenuItem.Name = "commentToolStripMenuItem";
-            this.commentToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.commentToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
             this.commentToolStripMenuItem.Text = "Comment";
             this.commentToolStripMenuItem.Click += new System.EventHandler(this.commentToolStripMenuItem_Click);
             // 
@@ -245,11 +245,19 @@
             this.switchDarklightModeToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.switchDarklightModeToolStripMenuItem.Text = "Switch dark/light mode";
             // 
+            // clearCacheToolStripMenuItem
+            // 
+            this.clearCacheToolStripMenuItem.Name = "clearCacheToolStripMenuItem";
+            this.clearCacheToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
+            this.clearCacheToolStripMenuItem.Text = "Clear cache";
+            this.clearCacheToolStripMenuItem.Click += new System.EventHandler(this.clearCacheToolStripMenuItem_Click);
+            // 
             // infoToolStripMenuItem
             // 
             this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
             this.infoToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.infoToolStripMenuItem.Text = "Info";
+            this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 
             // toolStripContainer1
             // 
@@ -272,9 +280,9 @@
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip3);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip2);
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip4);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip5);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip6);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip4);
             // 
             // dataGridView1
             // 
@@ -298,6 +306,67 @@
             this.dataGridView1.Size = new System.Drawing.Size(1472, 356);
             this.dataGridView1.TabIndex = 0;
             // 
+            // Selected
+            // 
+            this.Selected.FalseValue = "unselected";
+            this.Selected.HeaderText = "Selected";
+            this.Selected.MinimumWidth = 6;
+            this.Selected.Name = "Selected";
+            this.Selected.ReadOnly = true;
+            this.Selected.TrueValue = "selected";
+            this.Selected.Width = 75;
+            // 
+            // Track
+            // 
+            this.Track.HeaderText = "Track";
+            this.Track.MinimumWidth = 6;
+            this.Track.Name = "Track";
+            this.Track.ReadOnly = true;
+            this.Track.ToolTipText = "Number of Track";
+            this.Track.Width = 75;
+            // 
+            // Artist
+            // 
+            this.Artist.HeaderText = "Artist";
+            this.Artist.MinimumWidth = 6;
+            this.Artist.Name = "Artist";
+            this.Artist.Width = 125;
+            // 
+            // Genre
+            // 
+            this.Genre.HeaderText = "Genre";
+            this.Genre.MinimumWidth = 6;
+            this.Genre.Name = "Genre";
+            this.Genre.Width = 75;
+            // 
+            // Album
+            // 
+            this.Album.HeaderText = "Album";
+            this.Album.MinimumWidth = 6;
+            this.Album.Name = "Album";
+            this.Album.Width = 125;
+            // 
+            // Title
+            // 
+            this.Title.HeaderText = "Title";
+            this.Title.MinimumWidth = 6;
+            this.Title.Name = "Title";
+            this.Title.Width = 200;
+            // 
+            // Keywords
+            // 
+            this.Keywords.HeaderText = "Keywords (,,)";
+            this.Keywords.MinimumWidth = 6;
+            this.Keywords.Name = "Keywords";
+            this.Keywords.Width = 125;
+            // 
+            // Comment
+            // 
+            this.Comment.HeaderText = "Comment";
+            this.Comment.MinimumWidth = 6;
+            this.Comment.Name = "Comment";
+            this.Comment.Width = 250;
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
@@ -309,7 +378,7 @@
             this.toolStripButton3,
             this.toolStripSeparator2,
             this.toolStripButton4});
-            this.toolStrip1.Location = new System.Drawing.Point(4, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(5, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(169, 27);
             this.toolStrip1.TabIndex = 0;
@@ -374,7 +443,7 @@
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton6,
             this.toolStripButton7});
-            this.toolStrip3.Location = new System.Drawing.Point(173, 0);
+            this.toolStrip3.Location = new System.Drawing.Point(174, 0);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.Size = new System.Drawing.Size(71, 27);
             this.toolStrip3.TabIndex = 0;
@@ -404,9 +473,9 @@
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton5,
             this.toolStripButton8});
-            this.toolStrip2.Location = new System.Drawing.Point(244, 0);
+            this.toolStrip2.Location = new System.Drawing.Point(245, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(71, 27);
+            this.toolStrip2.Size = new System.Drawing.Size(110, 27);
             this.toolStrip2.TabIndex = 1;
             // 
             // toolStripButton5
@@ -426,6 +495,7 @@
             this.toolStripButton8.Name = "toolStripButton8";
             this.toolStripButton8.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton8.Text = "Info";
+            this.toolStripButton8.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 
             // toolStrip4
             // 
@@ -435,7 +505,7 @@
             this.toolStripLabel1,
             this.toolStripProgressBar1,
             this.toolStripButton12});
-            this.toolStrip4.Location = new System.Drawing.Point(552, 0);
+            this.toolStrip4.Location = new System.Drawing.Point(593, 0);
             this.toolStrip4.Name = "toolStrip4";
             this.toolStrip4.Size = new System.Drawing.Size(300, 27);
             this.toolStrip4.TabIndex = 2;
@@ -452,6 +522,16 @@
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 24);
             this.toolStripProgressBar1.ToolTipText = "Disc loading process";
             // 
+            // toolStripButton12
+            // 
+            this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton12.Image = global::CD_Player.Properties.Resources.Exit_light_mode;
+            this.toolStripButton12.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton12.Name = "toolStripButton12";
+            this.toolStripButton12.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton12.Text = "Cancel loading";
+            this.toolStripButton12.Click += new System.EventHandler(this.toolStripButton12_Click);
+            // 
             // toolStrip5
             // 
             this.toolStrip5.Dock = System.Windows.Forms.DockStyle.None;
@@ -460,7 +540,7 @@
             this.toolStripButton11,
             this.toolStripButton9,
             this.toolStripButton10});
-            this.toolStrip5.Location = new System.Drawing.Point(315, 0);
+            this.toolStrip5.Location = new System.Drawing.Point(355, 0);
             this.toolStrip5.Name = "toolStrip5";
             this.toolStrip5.Size = new System.Drawing.Size(100, 27);
             this.toolStrip5.TabIndex = 3;
@@ -498,7 +578,7 @@
             this.toolStrip6.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip6.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripComboBox1});
-            this.toolStrip6.Location = new System.Drawing.Point(416, 0);
+            this.toolStrip6.Location = new System.Drawing.Point(455, 0);
             this.toolStrip6.Name = "toolStrip6";
             this.toolStrip6.Size = new System.Drawing.Size(136, 28);
             this.toolStrip6.TabIndex = 4;
@@ -512,85 +592,7 @@
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 28);
             this.toolStripComboBox1.Text = "Continue playback";
             // 
-            // Selected
-            // 
-            this.Selected.FalseValue = "unselected";
-            this.Selected.HeaderText = "Selected";
-            this.Selected.MinimumWidth = 6;
-            this.Selected.Name = "Selected";
-            this.Selected.ReadOnly = true;
-            this.Selected.TrueValue = "selected";
-            this.Selected.Width = 75;
-            // 
-            // Track
-            // 
-            this.Track.HeaderText = "Track";
-            this.Track.MinimumWidth = 6;
-            this.Track.Name = "Track";
-            this.Track.ReadOnly = true;
-            this.Track.ToolTipText = "Number of Track";
-            this.Track.Width = 75;
-            // 
-            // Artist
-            // 
-            this.Artist.HeaderText = "Artist";
-            this.Artist.MinimumWidth = 6;
-            this.Artist.Name = "Artist";
-            this.Artist.Width = 125;
-            // 
-            // Genre
-            // 
-            this.Genre.HeaderText = "Genre";
-            this.Genre.MinimumWidth = 6;
-            this.Genre.Name = "Genre";
-            this.Genre.Width = 75;
-            // 
-            // Album
-            // 
-            this.Album.HeaderText = "Album";
-            this.Album.MinimumWidth = 6;
-            this.Album.Name = "Album";
-            this.Album.Width = 125;
-            // 
-            // Title
-            // 
-            this.Title.HeaderText = "Title";
-            this.Title.MinimumWidth = 6;
-            this.Title.Name = "Title";
-            this.Title.Width = 200;
-            // 
-            // Keywords
-            // 
-            this.Keywords.HeaderText = "Keywords (,,)";
-            this.Keywords.MinimumWidth = 6;
-            this.Keywords.Name = "Keywords";
-            this.Keywords.Width = 125;
-            // 
-            // Comment
-            // 
-            this.Comment.HeaderText = "Comment";
-            this.Comment.MinimumWidth = 6;
-            this.Comment.Name = "Comment";
-            this.Comment.Width = 250;
-            // 
-            // clearCacheToolStripMenuItem
-            // 
-            this.clearCacheToolStripMenuItem.Name = "clearCacheToolStripMenuItem";
-            this.clearCacheToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
-            this.clearCacheToolStripMenuItem.Text = "Clear cache";
-            this.clearCacheToolStripMenuItem.Click += new System.EventHandler(this.clearCacheToolStripMenuItem_Click);
-            // 
-            // toolStripButton12
-            // 
-            this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton12.Image = global::CD_Player.Properties.Resources.Exit_light_mode;
-            this.toolStripButton12.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton12.Name = "toolStripButton12";
-            this.toolStripButton12.Size = new System.Drawing.Size(29, 24);
-            this.toolStripButton12.Text = "Cancel loading";
-            this.toolStripButton12.Click += new System.EventHandler(this.toolStripButton12_Click);
-            // 
-            // Form1
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -599,8 +601,10 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CD Player";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

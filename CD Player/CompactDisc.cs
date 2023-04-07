@@ -118,6 +118,8 @@ namespace EasyCodeClass.Multimedia.Audio.Windows.CDRom
 
         public void GetData(TrackReaded trackReaded/*, out int InvaildDataErrors*/)
         {
+            AbortProcess = false;
+
             WaveFormat format = new WaveFormat();
             format.SampleRate = 44100;
             format.bitsPerSample = BitsPerSample.WAV16;

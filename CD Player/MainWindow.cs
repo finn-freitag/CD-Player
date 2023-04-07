@@ -18,7 +18,7 @@ using System.Windows.Forms;
 
 namespace CD_Player
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
         SoundPlayer audio = new SoundPlayer();
 
@@ -34,7 +34,7 @@ namespace CD_Player
 
         bool isLoading = false;
 
-        public Form1()
+        public MainWindow()
         {
             InitializeComponent();
             dataGridView1.SelectionChanged += dataGridView1_SelectionChanged; // Add this event after component initializing to prevent null reference exceptions
@@ -244,8 +244,14 @@ namespace CD_Player
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            if (currentDisc != null && !isLoading)
+            if (currentDisc != null)
             {
+                if (isLoading)
+                {
+                    currentDisc.AbortProcess = true;
+                    toolStrip4.Visible = false;
+                    Thread.Sleep(300);
+                }
                 currentDisc.Eject();
                 currentDisc = null;
             }
@@ -338,6 +344,12 @@ namespace CD_Player
         {
             if (currentDisc != null) currentDisc.AbortProcess = true;
             toolStrip4.Visible = false;
+        }
+
+        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Info info = new Info();
+            info.Show();
         }
     }
 }
