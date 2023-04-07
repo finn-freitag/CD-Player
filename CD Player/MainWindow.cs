@@ -93,7 +93,14 @@ namespace CD_Player
         private void DiscClicked(object sender, EventArgs e)
         {
             currentDisc = discs[(int)((ToolStripMenuItem)sender).Tag];
-            trackcount = currentDisc.TrackCount;
+            try
+            {
+                trackcount = currentDisc.TrackCount;
+            }
+            catch
+            {
+                MessageBox.Show("Error! Please check if disc has been inserted!");
+            }
 
             dataGridView1.Rows.Clear();
 
