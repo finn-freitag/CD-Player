@@ -21,7 +21,17 @@ namespace CD_Player
     public partial class MainWindow : Form
     {
         List<int> currentPlaylist = new List<int>();
-        int playlistIndex = 0;
+        int pI = 0;
+        int playlistIndex
+        {
+            get { return pI; }
+            set
+            {
+                pI = value;
+                toolStripLabel2.Text = "T:" + (pI + 1);
+            }
+        }
+        bool playlistEqlAll = false;
 
         CompactDisc[] discs;
 
@@ -41,6 +51,7 @@ namespace CD_Player
             dataGridView1.SelectionChanged += dataGridView1_SelectionChanged; // Add this event after component initializing to prevent null reference exceptions
             dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
 
+            Player.Init(this.Icon, this.Text);
             Player.Finished += TrackFinished;
 
             path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\CDPlayer\\";
@@ -86,7 +97,7 @@ namespace CD_Player
             toolStripProgressBar1.Value = 0;
             toolStrip4.Visible = true;
 
-            Player.StopAndDispose();
+            Player.Stop();
             ClearDirectory(wavePath);
 
             Thread t = new Thread(new ThreadStart(StartLoading));
@@ -132,6 +143,8 @@ namespace CD_Player
                 row.Cells[dataGridView1.Columns["Comment"].Index].Value = "";
                 dataGridView1.Rows.Add(row);
 
+                if (playlistEqlAll) currentPlaylist.Add(e.trackNumber);
+
                 toolStripProgressBar1.Value = e.trackNumber;
                 if (!e.hasMoreTracks)
                 {
@@ -145,31 +158,33 @@ namespace CD_Player
         {
             if (currentPlaylist.Count > 0)
             {
-                Player.Play(File.ReadAllBytes(wavePath + currentPlaylist[0] + ".wav"));
-                playlistIndex = 1;
+                Player.Play(wavePath + currentPlaylist[0] + ".wav");
+                playlistIndex = 0;
+                toolStripButton9.Image = Properties.Resources.Pause;
             }
         }
 
         private void TrackFinished(object sender, EventArgs e)
         {
-            if (currentPlaylist.Count > playlistIndex)
+            if (currentPlaylist.Count > playlistIndex + 1)
             {
-                Player.Play(File.ReadAllBytes(wavePath + currentPlaylist[playlistIndex] + ".wav"));
                 playlistIndex++;
+                Player.Play(wavePath + currentPlaylist[playlistIndex] + ".wav");
+                toolStripButton9.Image = Properties.Resources.Pause;
+                return;
             }
             else
             {
-                bool continuePlayback = false;
-                this.Invoke(new Action(() =>
+                if (toolStripComboBox1.Text == "Continue playback")
                 {
-                    continuePlayback = toolStripComboBox1.Text == "Continue playback";
-                }));
-                if (continuePlayback)
-                {
-                    Player.Play(File.ReadAllBytes(wavePath + currentPlaylist[0] + ".wav"));
-                    playlistIndex = 1;
+                    Player.Play(wavePath + currentPlaylist[0] + ".wav");
+                    playlistIndex = 0;
+                    toolStripButton9.Image = Properties.Resources.Pause;
+                    return;
                 }
             }
+            Player.Stop();
+            toolStripButton9.Image = Properties.Resources.Play;
         }
 
         private void SaveTrackAs(int trackNum, string path)
@@ -214,6 +229,8 @@ namespace CD_Player
             filename = filename.Replace("%ALBUM%", (string)dataGridView1.Rows[rowindex].Cells[dataGridView1.Columns["Album"].Index].Value);
             filename = filename.Replace("%TITLE%", (string)dataGridView1.Rows[rowindex].Cells[dataGridView1.Columns["Title"].Index].Value);
             filename = filename.Replace("%COMMENT%", (string)dataGridView1.Rows[rowindex].Cells[dataGridView1.Columns["Comment"].Index].Value);
+            string dir = Path.GetDirectoryName(filename);
+            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
             return filename + ".wav";
         }
 
@@ -250,6 +267,7 @@ namespace CD_Player
 
         private void ClearDirectory(string dir)
         {
+            Player.Stop();
             foreach(string file in  Directory.GetFiles(dir))
             {
                 File.Delete(file);
@@ -282,7 +300,7 @@ namespace CD_Player
                     Thread.Sleep(300);
                 }
                 currentDisc.Eject();
-                currentDisc = null;
+                //currentDisc = null;
             }
         }
 
@@ -430,6 +448,7 @@ namespace CD_Player
                 }
             }
             StartPlaylist();
+            playlistEqlAll = false;
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -440,19 +459,90 @@ namespace CD_Player
                 currentPlaylist.Add(Convert.ToInt32((string)row.Cells[dataGridView1.Columns["Track"].Index].Value));
             }
             StartPlaylist();
+            playlistEqlAll = true;
         }
 
         private void toolStripButton9_Click(object sender, EventArgs e)
         {
-            Player.SwitchPlayPause();
             if (Player.Playing)
             {
-                toolStripButton9.Image = Properties.Resources.Pause;
+                Player.Pause();
+                toolStripButton9.Image = Properties.Resources.Play;
             }
             else
             {
-                toolStripButton9.Image = Properties.Resources.Play;
+                if (Player.SessionActive)
+                {
+                    Player.Resume();
+                    toolStripButton9.Image = Properties.Resources.Pause;
+                }
+                else
+                {
+                    if (currentPlaylist.Count > 0) StartPlaylist(); else
+                    {
+                        currentPlaylist.Clear();
+                        foreach (DataGridViewRow row in dataGridView1.Rows)
+                        {
+                            currentPlaylist.Add(Convert.ToInt32((string)row.Cells[dataGridView1.Columns["Track"].Index].Value));
+                        }
+                        StartPlaylist();
+                        playlistEqlAll = true;
+                    }
+                }
             }
+        }
+
+        private void toolStripButton10_Click(object sender, EventArgs e)
+        {
+            Player.Stop();
+            if (currentPlaylist.Count > playlistIndex + 1)
+            {
+                playlistIndex++;
+                Player.Play(wavePath + currentPlaylist[playlistIndex] + ".wav");
+                toolStripButton9.Image = Properties.Resources.Pause;
+                return;
+            }
+            else
+            {
+                if (toolStripComboBox1.Text == "Continue playback")
+                {
+                    Player.Play(wavePath + currentPlaylist[0] + ".wav");
+                    playlistIndex = 0;
+                    toolStripButton9.Image = Properties.Resources.Pause;
+                    return;
+                }
+            }
+            Player.Stop();
+            toolStripButton9.Image = Properties.Resources.Play;
+        }
+
+        private void toolStripButton11_Click(object sender, EventArgs e)
+        {
+            Player.Stop();
+            if (playlistIndex - 1 >= 0)
+            {
+                playlistIndex--;
+                Player.Play(wavePath + currentPlaylist[playlistIndex] + ".wav");
+                toolStripButton9.Image = Properties.Resources.Pause;
+                return;
+            }
+            else
+            {
+                if (toolStripComboBox1.Text == "Continue playback")
+                {
+                    playlistIndex = currentPlaylist.Count - 1;
+                    Player.Play(wavePath + currentPlaylist[playlistIndex] + ".wav");
+                    toolStripButton9.Image = Properties.Resources.Pause;
+                    return;
+                }
+            }
+            Player.Stop();
+            toolStripButton9.Image = Properties.Resources.Play;
+        }
+
+        private void editFilenameTemplateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FilenameEditor edit = new FilenameEditor(filenameFile);
         }
     }
 }

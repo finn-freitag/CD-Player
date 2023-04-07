@@ -77,12 +77,14 @@
             this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStrip6 = new System.Windows.Forms.ToolStrip();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.toolStrip4 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
+            this.editFilenameTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -234,6 +236,7 @@
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.switchDarklightModeToolStripMenuItem,
             this.clearCacheToolStripMenuItem,
+            this.editFilenameTemplateToolStripMenuItem,
             this.infoToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
@@ -277,12 +280,12 @@
             // 
             // toolStripContainer1.TopToolStripPanel
             // 
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip3);
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip2);
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip5);
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip6);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip4);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip6);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip5);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip2);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip3);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
             // 
             // dataGridView1
             // 
@@ -508,10 +511,11 @@
             this.toolStrip5.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton11,
             this.toolStripButton9,
-            this.toolStripButton10});
-            this.toolStrip5.Location = new System.Drawing.Point(50, 55);
+            this.toolStripButton10,
+            this.toolStripLabel2});
+            this.toolStrip5.Location = new System.Drawing.Point(22, 55);
             this.toolStrip5.Name = "toolStrip5";
-            this.toolStrip5.Size = new System.Drawing.Size(139, 27);
+            this.toolStrip5.Size = new System.Drawing.Size(128, 27);
             this.toolStrip5.TabIndex = 3;
             // 
             // toolStripButton11
@@ -522,6 +526,7 @@
             this.toolStripButton11.Name = "toolStripButton11";
             this.toolStripButton11.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton11.Text = "Last";
+            this.toolStripButton11.Click += new System.EventHandler(this.toolStripButton11_Click);
             // 
             // toolStripButton9
             // 
@@ -541,6 +546,13 @@
             this.toolStripButton10.Name = "toolStripButton10";
             this.toolStripButton10.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton10.Text = "Next";
+            this.toolStripButton10.Click += new System.EventHandler(this.toolStripButton10_Click);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(28, 24);
+            this.toolStripLabel2.Text = "T:1";
             // 
             // toolStrip6
             // 
@@ -596,6 +608,13 @@
             this.toolStripButton12.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton12.Text = "Cancel loading";
             this.toolStripButton12.Click += new System.EventHandler(this.toolStripButton12_Click);
+            // 
+            // editFilenameTemplateToolStripMenuItem
+            // 
+            this.editFilenameTemplateToolStripMenuItem.Name = "editFilenameTemplateToolStripMenuItem";
+            this.editFilenameTemplateToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
+            this.editFilenameTemplateToolStripMenuItem.Text = "Edit filename template";
+            this.editFilenameTemplateToolStripMenuItem.Click += new System.EventHandler(this.editFilenameTemplateToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -692,6 +711,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Comment;
         private System.Windows.Forms.ToolStripMenuItem clearCacheToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButton12;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripMenuItem editFilenameTemplateToolStripMenuItem;
     }
 }
 
