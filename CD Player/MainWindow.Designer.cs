@@ -73,16 +73,16 @@
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
-            this.toolStrip4 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip5 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip6 = new System.Windows.Forms.ToolStrip();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStrip4 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -91,9 +91,9 @@
             this.toolStrip1.SuspendLayout();
             this.toolStrip3.SuspendLayout();
             this.toolStrip2.SuspendLayout();
-            this.toolStrip4.SuspendLayout();
             this.toolStrip5.SuspendLayout();
             this.toolStrip6.SuspendLayout();
+            this.toolStrip4.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -268,7 +268,7 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.dataGridView1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1472, 356);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1472, 221);
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 31);
             this.toolStripContainer1.Name = "toolStripContainer1";
             this.toolStripContainer1.Size = new System.Drawing.Size(1472, 384);
@@ -287,6 +287,7 @@
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -303,7 +304,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1472, 356);
+            this.dataGridView1.Size = new System.Drawing.Size(1472, 221);
             this.dataGridView1.TabIndex = 0;
             // 
             // Selected
@@ -378,7 +379,7 @@
             this.toolStripButton3,
             this.toolStripSeparator2,
             this.toolStripButton4});
-            this.toolStrip1.Location = new System.Drawing.Point(5, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(4, 136);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(169, 27);
             this.toolStrip1.TabIndex = 0;
@@ -410,6 +411,7 @@
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton2.Text = "Play all";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // toolStripButton3
             // 
@@ -443,7 +445,7 @@
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton6,
             this.toolStripButton7});
-            this.toolStrip3.Location = new System.Drawing.Point(174, 0);
+            this.toolStrip3.Location = new System.Drawing.Point(79, 109);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.Size = new System.Drawing.Size(71, 27);
             this.toolStrip3.TabIndex = 0;
@@ -456,6 +458,7 @@
             this.toolStripButton6.Name = "toolStripButton6";
             this.toolStripButton6.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton6.Text = "Play selected track";
+            this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
             // 
             // toolStripButton7
             // 
@@ -465,6 +468,7 @@
             this.toolStripButton7.Name = "toolStripButton7";
             this.toolStripButton7.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton7.Text = "Save selected track";
+            this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
             // 
             // toolStrip2
             // 
@@ -473,9 +477,9 @@
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton5,
             this.toolStripButton8});
-            this.toolStrip2.Location = new System.Drawing.Point(245, 0);
+            this.toolStrip2.Location = new System.Drawing.Point(79, 82);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(110, 27);
+            this.toolStrip2.Size = new System.Drawing.Size(71, 27);
             this.toolStrip2.TabIndex = 1;
             // 
             // toolStripButton5
@@ -497,6 +501,67 @@
             this.toolStripButton8.Text = "Info";
             this.toolStripButton8.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 
+            // toolStrip5
+            // 
+            this.toolStrip5.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip5.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip5.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton11,
+            this.toolStripButton9,
+            this.toolStripButton10});
+            this.toolStrip5.Location = new System.Drawing.Point(50, 55);
+            this.toolStrip5.Name = "toolStrip5";
+            this.toolStrip5.Size = new System.Drawing.Size(139, 27);
+            this.toolStrip5.TabIndex = 3;
+            // 
+            // toolStripButton11
+            // 
+            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton11.Image = global::CD_Player.Properties.Resources.last;
+            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton11.Name = "toolStripButton11";
+            this.toolStripButton11.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton11.Text = "Last";
+            // 
+            // toolStripButton9
+            // 
+            this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton9.Image = global::CD_Player.Properties.Resources.Play;
+            this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton9.Name = "toolStripButton9";
+            this.toolStripButton9.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton9.Text = "Play / Pause";
+            this.toolStripButton9.Click += new System.EventHandler(this.toolStripButton9_Click);
+            // 
+            // toolStripButton10
+            // 
+            this.toolStripButton10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton10.Image = global::CD_Player.Properties.Resources.next;
+            this.toolStripButton10.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton10.Name = "toolStripButton10";
+            this.toolStripButton10.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton10.Text = "Next";
+            // 
+            // toolStrip6
+            // 
+            this.toolStrip6.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip6.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip6.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBox1});
+            this.toolStrip6.Location = new System.Drawing.Point(14, 27);
+            this.toolStrip6.Name = "toolStrip6";
+            this.toolStrip6.Size = new System.Drawing.Size(136, 28);
+            this.toolStrip6.TabIndex = 4;
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Items.AddRange(new object[] {
+            "Continue playback",
+            "Stop playback"});
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 28);
+            this.toolStripComboBox1.Text = "Continue playback";
+            // 
             // toolStrip4
             // 
             this.toolStrip4.Dock = System.Windows.Forms.DockStyle.None;
@@ -505,7 +570,7 @@
             this.toolStripLabel1,
             this.toolStripProgressBar1,
             this.toolStripButton12});
-            this.toolStrip4.Location = new System.Drawing.Point(593, 0);
+            this.toolStrip4.Location = new System.Drawing.Point(4, 0);
             this.toolStrip4.Name = "toolStrip4";
             this.toolStrip4.Size = new System.Drawing.Size(300, 27);
             this.toolStrip4.TabIndex = 2;
@@ -531,66 +596,6 @@
             this.toolStripButton12.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton12.Text = "Cancel loading";
             this.toolStripButton12.Click += new System.EventHandler(this.toolStripButton12_Click);
-            // 
-            // toolStrip5
-            // 
-            this.toolStrip5.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip5.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip5.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton11,
-            this.toolStripButton9,
-            this.toolStripButton10});
-            this.toolStrip5.Location = new System.Drawing.Point(355, 0);
-            this.toolStrip5.Name = "toolStrip5";
-            this.toolStrip5.Size = new System.Drawing.Size(100, 27);
-            this.toolStrip5.TabIndex = 3;
-            // 
-            // toolStripButton11
-            // 
-            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton11.Image = global::CD_Player.Properties.Resources.last;
-            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton11.Name = "toolStripButton11";
-            this.toolStripButton11.Size = new System.Drawing.Size(29, 24);
-            this.toolStripButton11.Text = "Last";
-            // 
-            // toolStripButton9
-            // 
-            this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton9.Image = global::CD_Player.Properties.Resources.Play;
-            this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton9.Name = "toolStripButton9";
-            this.toolStripButton9.Size = new System.Drawing.Size(29, 24);
-            this.toolStripButton9.Text = "Play / Pause";
-            // 
-            // toolStripButton10
-            // 
-            this.toolStripButton10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton10.Image = global::CD_Player.Properties.Resources.next;
-            this.toolStripButton10.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton10.Name = "toolStripButton10";
-            this.toolStripButton10.Size = new System.Drawing.Size(29, 24);
-            this.toolStripButton10.Text = "Next";
-            // 
-            // toolStrip6
-            // 
-            this.toolStrip6.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip6.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip6.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripComboBox1});
-            this.toolStrip6.Location = new System.Drawing.Point(455, 0);
-            this.toolStrip6.Name = "toolStrip6";
-            this.toolStrip6.Size = new System.Drawing.Size(136, 28);
-            this.toolStrip6.TabIndex = 4;
-            // 
-            // toolStripComboBox1
-            // 
-            this.toolStripComboBox1.Items.AddRange(new object[] {
-            "Continue playback",
-            "Stop playback"});
-            this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 28);
-            this.toolStripComboBox1.Text = "Continue playback";
             // 
             // MainWindow
             // 
@@ -620,12 +625,12 @@
             this.toolStrip3.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
-            this.toolStrip4.ResumeLayout(false);
-            this.toolStrip4.PerformLayout();
             this.toolStrip5.ResumeLayout(false);
             this.toolStrip5.PerformLayout();
             this.toolStrip6.ResumeLayout(false);
             this.toolStrip6.PerformLayout();
+            this.toolStrip4.ResumeLayout(false);
+            this.toolStrip4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

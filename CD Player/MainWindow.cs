@@ -20,7 +20,8 @@ namespace CD_Player
 {
     public partial class MainWindow : Form
     {
-        SoundPlayer audio = new SoundPlayer();
+        List<int> currentPlaylist = new List<int>();
+        int playlistIndex = 0;
 
         CompactDisc[] discs;
 
@@ -39,6 +40,8 @@ namespace CD_Player
             InitializeComponent();
             dataGridView1.SelectionChanged += dataGridView1_SelectionChanged; // Add this event after component initializing to prevent null reference exceptions
             dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
+
+            Player.Finished += TrackFinished;
 
             path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\CDPlayer\\";
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
@@ -83,7 +86,7 @@ namespace CD_Player
             toolStripProgressBar1.Value = 0;
             toolStrip4.Visible = true;
 
-            StopAndDisposeAudio();
+            Player.StopAndDispose();
             ClearDirectory(wavePath);
 
             Thread t = new Thread(new ThreadStart(StartLoading));
@@ -138,9 +141,35 @@ namespace CD_Player
             }));
         }
 
-        private void StopAndDisposeAudio()
+        private void StartPlaylist()
         {
+            if (currentPlaylist.Count > 0)
+            {
+                Player.Play(File.ReadAllBytes(wavePath + currentPlaylist[0] + ".wav"));
+                playlistIndex = 1;
+            }
+        }
 
+        private void TrackFinished(object sender, EventArgs e)
+        {
+            if (currentPlaylist.Count > playlistIndex)
+            {
+                Player.Play(File.ReadAllBytes(wavePath + currentPlaylist[playlistIndex] + ".wav"));
+                playlistIndex++;
+            }
+            else
+            {
+                bool continuePlayback = false;
+                this.Invoke(new Action(() =>
+                {
+                    continuePlayback = toolStripComboBox1.Text == "Continue playback";
+                }));
+                if (continuePlayback)
+                {
+                    Player.Play(File.ReadAllBytes(wavePath + currentPlaylist[0] + ".wav"));
+                    playlistIndex = 1;
+                }
+            }
         }
 
         private void SaveTrackAs(int trackNum, string path)
@@ -350,6 +379,80 @@ namespace CD_Player
         {
             Info info = new Info();
             info.Show();
+        }
+
+        private void toolStripButton7_Click(object sender, EventArgs e)
+        {
+            List<int> tracks = new List<int>();
+            foreach(DataGridViewRow row in dataGridView1.Rows)
+            {
+                if ((string)row.Cells[dataGridView1.Columns["Selected"].Index].Value == "selected")
+                {
+                    tracks.Add(Convert.ToInt32((string)row.Cells[dataGridView1.Columns["Track"].Index].Value));
+                }
+            }
+            if(tracks.Count == 1)
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.FileName = GeneratePath(tracks[0]);
+                sfd.CheckPathExists = true;
+                sfd.Filter = "Wave Audio|*.wav";
+                sfd.Title = "Save track as...";
+                if(sfd.ShowDialog() == DialogResult.OK)
+                {
+                    SaveTrackAs(tracks[0], sfd.FileName);
+                }
+                return;
+            }
+            if(tracks.Count > 1)
+            {
+                FolderBrowserDialog fbd = new FolderBrowserDialog();
+                fbd.Description = "Save tracks as...";
+                fbd.ShowNewFolderButton = true;
+                if (fbd.ShowDialog() == DialogResult.OK)
+                {
+                    foreach(int i in tracks)
+                    {
+                        SaveTrackAs(i, fbd.SelectedPath + "\\" + GeneratePath(i));
+                    }
+                }
+            }
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            currentPlaylist.Clear();
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if ((bool)row.Cells[dataGridView1.Columns["Selected"].Index].Value)
+                {
+                    currentPlaylist.Add(Convert.ToInt32((string)row.Cells[dataGridView1.Columns["Track"].Index].Value));
+                }
+            }
+            StartPlaylist();
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            currentPlaylist.Clear();
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                currentPlaylist.Add(Convert.ToInt32((string)row.Cells[dataGridView1.Columns["Track"].Index].Value));
+            }
+            StartPlaylist();
+        }
+
+        private void toolStripButton9_Click(object sender, EventArgs e)
+        {
+            Player.SwitchPlayPause();
+            if (Player.Playing)
+            {
+                toolStripButton9.Image = Properties.Resources.Pause;
+            }
+            else
+            {
+                toolStripButton9.Image = Properties.Resources.Play;
+            }
         }
     }
 }
