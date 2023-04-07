@@ -75,6 +75,7 @@
     <Compile Include="Interop\TrackDataList.cs" />
     <Compile Include="Interop\TRACK_DATA.cs" />
     <Compile Include="Interop\TRACK_MODE_TYPE.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wave\AdditionSampleMixer.cs" />
