@@ -20,6 +20,10 @@ namespace CD_Player
 {
     public partial class MainWindow : Form
     {
+        Color darkMode = Color.FromArgb(30, 30, 30);
+        Color darkModeAccent = Color.FromArgb(50, 50, 50);
+        bool isLightMode = true;
+
         List<int> currentPlaylist = new List<int>();
         int pI = 0;
         int playlistIndex
@@ -150,6 +154,7 @@ namespace CD_Player
                 {
                     toolStrip4.Visible = false;
                     isLoading = false;
+                    GC.Collect();
                 }
             }));
         }
@@ -189,6 +194,18 @@ namespace CD_Player
 
         private void SaveTrackAs(int trackNum, string path)
         {
+            string dir = Path.GetDirectoryName(path);
+            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+
+            int counter = 2;
+            string pathpart = Path.GetDirectoryName(path) + "\\" + Path.GetFileNameWithoutExtension(path);
+            do
+            {
+                path = pathpart + counter + ".wav";
+                counter++;
+            }
+            while (File.Exists(path));
+
             int rowindex = GetRowIndex(trackNum);
             LIST_Tag tag = new LIST_Tag();
             tag.Tags.Add(new ILIST_Tag_TrackNumber(trackNum));
@@ -229,8 +246,6 @@ namespace CD_Player
             filename = filename.Replace("%ALBUM%", (string)dataGridView1.Rows[rowindex].Cells[dataGridView1.Columns["Album"].Index].Value);
             filename = filename.Replace("%TITLE%", (string)dataGridView1.Rows[rowindex].Cells[dataGridView1.Columns["Title"].Index].Value);
             filename = filename.Replace("%COMMENT%", (string)dataGridView1.Rows[rowindex].Cells[dataGridView1.Columns["Comment"].Index].Value);
-            string dir = Path.GetDirectoryName(filename);
-            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
             return filename + ".wav";
         }
 
@@ -404,7 +419,7 @@ namespace CD_Player
             List<int> tracks = new List<int>();
             foreach(DataGridViewRow row in dataGridView1.Rows)
             {
-                if ((string)row.Cells[dataGridView1.Columns["Selected"].Index].Value == "selected")
+                if ((bool)row.Cells[dataGridView1.Columns["Selected"].Index].Value)
                 {
                     tracks.Add(Convert.ToInt32((string)row.Cells[dataGridView1.Columns["Track"].Index].Value));
                 }
@@ -543,6 +558,31 @@ namespace CD_Player
         private void editFilenameTemplateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FilenameEditor edit = new FilenameEditor(filenameFile);
+            edit.Show();
+        }
+
+        private void switchDarklightModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (isLightMode)
+            {
+                SwitchToDark();
+                isLightMode = false;
+            }
+            else
+            {
+                SwitchToLight();
+                isLightMode = true;
+            }
+        }
+
+        private void SwitchToDark()
+        {
+            
+        }
+
+        private void SwitchToLight()
+        {
+
         }
     }
 }

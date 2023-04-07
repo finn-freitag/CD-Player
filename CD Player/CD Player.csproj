@@ -53,6 +53,12 @@
     <Compile Include="AssemblyInfoHelper.cs" />
     <Compile Include="AssemblyURL.cs" />
     <Compile Include="CompactDisc.cs" />
+    <Compile Include="FilenameEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FilenameEditor.Designer.cs">
+      <DependentUpon>FilenameEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,9 @@
     <Compile Include="Wave\TaggedWaveData.cs" />
     <Compile Include="Wave\WaveData.cs" />
     <Compile Include="Wave\WaveFormat.cs" />
+    <EmbeddedResource Include="FilenameEditor.resx">
+      <DependentUpon>FilenameEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
