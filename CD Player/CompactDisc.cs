@@ -58,6 +58,8 @@ namespace EasyCodeClass.Multimedia.Audio.Windows.CDRom
 
         public readonly string Name = "";
 
+        public bool AbortProcess = false;
+
         protected CompactDisc()
         {
 
@@ -176,56 +178,61 @@ namespace EasyCodeClass.Multimedia.Audio.Windows.CDRom
                                     Marshal.FreeHGlobal(pointer2);
                                     Array.Copy(SectorData, 0, TrackData[track], offset, BytesRead);
                                     offset += BytesRead;
+                                    if (AbortProcess) sector = EndSector;
                                 }
                                 //bw.Write(TrackData[track]);
                                 //bw.Close();
 
-                                WaveData wd = new WaveData();
-                                wd.format = (WaveFormat)format.Clone();
-                                wd.format.parent = wd;
-
-                                int dataLength = TrackData[track].Length;
-                                int readedLength = 0;
-                                List<List<long>> dat = new List<List<long>>();
-
-                                BinaryReader reader = new BinaryReader(new MemoryStream(TrackData[track]));
-
-                                for (int c = 0; c < format.Channels; c++)
+                                if (!AbortProcess)
                                 {
-                                    dat.Add(new List<long>());
-                                }
+                                    WaveData wd = new WaveData();
+                                    wd.format = (WaveFormat)format.Clone();
+                                    wd.format.parent = wd;
 
-                                while (dataLength > readedLength)
-                                {
+                                    int dataLength = TrackData[track].Length;
+                                    int readedLength = 0;
+                                    List<List<long>> dat = new List<List<long>>();
+
+                                    BinaryReader reader = new BinaryReader(new MemoryStream(TrackData[track]));
+
                                     for (int c = 0; c < format.Channels; c++)
                                     {
-                                        if (format.bitsPerSample == BitsPerSample.WAV16)
+                                        dat.Add(new List<long>());
+                                    }
+
+                                    while (dataLength > readedLength)
+                                    {
+                                        for (int c = 0; c < format.Channels; c++)
                                         {
-                                            dat[c].Add(reader.ReadInt16());
-                                            readedLength += 2;
-                                        }
-                                        if (format.bitsPerSample == BitsPerSample.WAV32)
-                                        {
-                                            dat[c].Add(reader.ReadInt32());
-                                            readedLength += 4;
-                                        }
-                                        if (format.bitsPerSample == BitsPerSample.WAV64)
-                                        {
-                                            dat[c].Add(reader.ReadInt64());
-                                            readedLength += 8;
+                                            if (format.bitsPerSample == BitsPerSample.WAV16)
+                                            {
+                                                dat[c].Add(reader.ReadInt16());
+                                                readedLength += 2;
+                                            }
+                                            if (format.bitsPerSample == BitsPerSample.WAV32)
+                                            {
+                                                dat[c].Add(reader.ReadInt32());
+                                                readedLength += 4;
+                                            }
+                                            if (format.bitsPerSample == BitsPerSample.WAV64)
+                                            {
+                                                dat[c].Add(reader.ReadInt64());
+                                                readedLength += 8;
+                                            }
                                         }
                                     }
+
+                                    int checkLength = dat[0].Count;
+                                    foreach (List<long> l in dat)
+                                    {
+                                        if (checkLength != l.Count) throw new InvalidCastException();
+                                    }
+
+                                    wd.data = dat;
+
+                                    trackReaded(new TrackReadEventArgs(wd, track, !(track == TrackCount - 1)));
                                 }
-
-                                int checkLength = dat[0].Count;
-                                foreach (List<long> l in dat)
-                                {
-                                    if (checkLength != l.Count) throw new InvalidCastException();
-                                }
-
-                                wd.data = dat;
-
-                                trackReaded(new TrackReadEventArgs(wd, track, !(track == TrackCount - 1)));
+                                if (AbortProcess) track = (int)TrackCount;
                             }
                             PREVENT_MEDIA_REMOVAL pmr = new PREVENT_MEDIA_REMOVAL();
                             pmr.PreventMediaRemoval = 0;
@@ -315,6 +322,7 @@ namespace EasyCodeClass.Multimedia.Audio.Windows.CDRom
             {
                 throw new DriveNotFoundException();
             }
+            AbortProcess = false;
         }
 
         public void Eject() // https://stackoverflow.com/questions/1449410/programatically-ejecting-and-retracting-the-cd-drive-in-vb-net-or-c-sharp

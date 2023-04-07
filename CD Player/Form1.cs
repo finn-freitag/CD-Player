@@ -102,6 +102,7 @@ namespace CD_Player
             catch
             {
                 // thrown if the program was terminated during track loading
+                currentDisc.AbortProcess = true;
             }
         }
 
@@ -310,6 +311,33 @@ namespace CD_Player
         private void commentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Equalize(dataGridView1.Columns["Comment"].Index);
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            if (currentDisc != null) currentDisc.AbortProcess = true;
+            Application.Exit();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (currentDisc != null) currentDisc.AbortProcess = true;
+        }
+
+        private void clearCacheToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+            if (currentDisc != null) currentDisc.AbortProcess = true;
+            toolStrip4.Visible = false;
+            currentDisc = null;
+            trackcount = 0;
+            ClearDirectory(wavePath);
+        }
+
+        private void toolStripButton12_Click(object sender, EventArgs e)
+        {
+            if (currentDisc != null) currentDisc.AbortProcess = true;
+            toolStrip4.Visible = false;
         }
     }
 }

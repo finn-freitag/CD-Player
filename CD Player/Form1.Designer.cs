@@ -81,6 +81,8 @@
             this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Keywords = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clearCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -157,6 +159,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // selectionToolStripMenuItem
             // 
@@ -170,13 +173,13 @@
             // saveTrackToolStripMenuItem
             // 
             this.saveTrackToolStripMenuItem.Name = "saveTrackToolStripMenuItem";
-            this.saveTrackToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
+            this.saveTrackToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveTrackToolStripMenuItem.Text = "Save track";
             // 
             // playTrackToolStripMenuItem
             // 
             this.playTrackToolStripMenuItem.Name = "playTrackToolStripMenuItem";
-            this.playTrackToolStripMenuItem.Size = new System.Drawing.Size(159, 26);
+            this.playTrackToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.playTrackToolStripMenuItem.Text = "Play track";
             // 
             // equaliseToolStripMenuItem
@@ -230,6 +233,7 @@
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.switchDarklightModeToolStripMenuItem,
+            this.clearCacheToolStripMenuItem,
             this.infoToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
@@ -256,7 +260,7 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.dataGridView1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1472, 353);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1472, 356);
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 31);
             this.toolStripContainer1.Name = "toolStripContainer1";
             this.toolStripContainer1.Size = new System.Drawing.Size(1472, 384);
@@ -291,7 +295,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1472, 353);
+            this.dataGridView1.Size = new System.Drawing.Size(1472, 356);
             this.dataGridView1.TabIndex = 0;
             // 
             // toolStrip1
@@ -361,6 +365,7 @@
             this.toolStripButton4.Name = "toolStripButton4";
             this.toolStripButton4.Size = new System.Drawing.Size(29, 24);
             this.toolStripButton4.Text = "Exit";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // toolStrip3
             // 
@@ -428,22 +433,23 @@
             this.toolStrip4.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
-            this.toolStripProgressBar1});
+            this.toolStripProgressBar1,
+            this.toolStripButton12});
             this.toolStrip4.Location = new System.Drawing.Point(552, 0);
             this.toolStrip4.Name = "toolStrip4";
-            this.toolStrip4.Size = new System.Drawing.Size(271, 25);
+            this.toolStrip4.Size = new System.Drawing.Size(300, 27);
             this.toolStrip4.TabIndex = 2;
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(156, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(156, 24);
             this.toolStripLabel1.Text = "Loading disc content...";
             // 
             // toolStripProgressBar1
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 22);
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 24);
             this.toolStripProgressBar1.ToolTipText = "Disc loading process";
             // 
             // toolStrip5
@@ -567,6 +573,23 @@
             this.Comment.Name = "Comment";
             this.Comment.Width = 250;
             // 
+            // clearCacheToolStripMenuItem
+            // 
+            this.clearCacheToolStripMenuItem.Name = "clearCacheToolStripMenuItem";
+            this.clearCacheToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
+            this.clearCacheToolStripMenuItem.Text = "Clear cache";
+            this.clearCacheToolStripMenuItem.Click += new System.EventHandler(this.clearCacheToolStripMenuItem_Click);
+            // 
+            // toolStripButton12
+            // 
+            this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton12.Image = global::CD_Player.Properties.Resources.Exit_light_mode;
+            this.toolStripButton12.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton12.Name = "toolStripButton12";
+            this.toolStripButton12.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton12.Text = "Cancel loading";
+            this.toolStripButton12.Click += new System.EventHandler(this.toolStripButton12_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -578,6 +601,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "CD Player";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
@@ -657,6 +681,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
         private System.Windows.Forms.DataGridViewTextBoxColumn Keywords;
         private System.Windows.Forms.DataGridViewTextBoxColumn Comment;
+        private System.Windows.Forms.ToolStripMenuItem clearCacheToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton12;
     }
 }
 
